@@ -2,7 +2,7 @@
 
 ## Instructions
 1. Create conda environment:
-'conda create -n InvestiGut_env python=3.11'
+`conda create -n InvestiGut_env python=3.11`
 2. 
 3. 
 
