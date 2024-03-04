@@ -38,7 +38,6 @@ def main():
     group.add_argument('-m', action='store_true', help='multi mode')
     parser.add_argument('-d', metavar='{DMND_TSV_OUTPUT}', help='optional DIAMOND .tsv output file to skip alignment')
 
-
     args = parser.parse_args()
 
     combine_qseqids = False
