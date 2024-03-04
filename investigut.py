@@ -44,7 +44,7 @@ def main():
     combine_qseqids = False
     save_folder="."
     qseqid_file = args.i
-    save_folder = datetime.now().strftime(f"%y_%m_%d_%H_%M_%S_investigut_output")
+    save_folder = datetime.now().strftime(f"output/%y_%m_%d_%H_%M_%S_investigut_output")
     if args.o:
         save_folder=args.o
     if args.s:
