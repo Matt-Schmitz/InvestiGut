@@ -2,3 +2,4 @@
 *.xz_[0-9]
 output/**
 *.pyc
+__pycache__/
