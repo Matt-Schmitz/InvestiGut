@@ -10,14 +10,11 @@ from collections import Counter, defaultdict
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
-from itertools import combinations
 from countrycode import country_convert
 from ete3 import NCBITaxa
 import re
-from os.path import exists
 from scipy.stats import mannwhitneyu
 import os
-import multiprocessing
 import pickle
 from investigut_utils import disk_cache
 import matplotlib.pyplot as plt
@@ -399,9 +396,9 @@ def main():
     # disease_cond, exclude_other_diseases=False, check_other_disease=[], subtype_cond=None, exclude_other_subtypes=False, check_other_subtype=[]
     run_list = {"CD":   ["IBD",         False,  ["perianal_fistula"],   "CD",   False,  []],
                 "UC":   ["IBD",         False,  ["perianal_fistula"],   "UC",   False,  []],
-            "CRC":   ["CRC",         True,   [],                     None,   False,  []],
-            "CDI":   ["CDI",         True,   [],                     None,   False,  []],
-            "T2D":   ["T2D",         True,   [],                     None,   False,  []],
+               "CRC":   ["CRC",         True,   [],                     None,   False,  []],
+               "CDI":   ["CDI",         True,   [],                     None,   False,  []],
+               "T2D":   ["T2D",         True,   [],                     None,   False,  []],
                 "RA":   ["RA",          True,   [],                     None,   False,  []],
     #"fatty_liver":   ["fatty_liver", True,   [],                     None,   False,  []]
     }
@@ -819,7 +816,7 @@ def main():
             intersection_set = all_sets[0]
             for s in all_sets[1:]:
                 intersection_set &= s
-            return len(intersection_set) ############################### CHECK IF CORRECT
+            return len(intersection_set) 
         return sum(sum(d.values()) for d in stats_ind[id].values() )
 
     c=[]#########
@@ -878,8 +875,6 @@ def main():
     lev_violin = dict()
 
     for qseqid, lev_files in lev_files_dict.items():
-        #lev_files.remove('Rep_1238')
-        #print(lev_files)######################################
         fpf = df[lev_files].sum(axis=1)
         fpf_nonzero = fpf[fpf != 0]*100
 
@@ -910,7 +905,6 @@ def main():
 
     # Write FPF
 
-
     for qseqid, [fpf, fpf_nonzero, fpf_il, fpf_nonzero_il, fpf_nld, fpf_nonzero_nld] in lev_violin.items():
         with open(f"./{save_folder}/{qseqid}/overview.txt", 'a+') as f:
             u_statistic, p_value = mannwhitneyu(fpf_nonzero_il, fpf_nonzero_nld)
@@ -922,11 +916,9 @@ def main():
             data = [fpf_nonzero, fpf_nonzero_il, fpf_nonzero_nld]
 
             log_data = [[np.log10(d) for d in row] for row in data]
-            fig, ax = plt.subplots(figsize=(14, 8))#9,6
+            fig, ax = plt.subplots(figsize=(14, 8))
 
-            
-            
-            #this is geometric mean
+
             sns.boxplot(data=log_data, width=0.25, 
                     showfliers=False, showmeans=True, 
                     meanprops=dict(marker='o', markerfacecolor='white', markeredgecolor="white",
@@ -938,9 +930,6 @@ def main():
                     medianprops=dict(linewidth=2, zorder=3, color="white"))
             sns.violinplot(data=log_data, zorder=1, ax=ax, inner=None, color='lightgray', density_norm='count')
 
-            #sns.swarmplot(data=log_data, zorder=2, s=3, ax=ax, palette='dark:black')
-
-            
             sns.swarmplot(data=log_data, zorder=2, s=1.5, ax=ax, palette='dark:black')
 
 
@@ -957,9 +946,8 @@ def main():
 
             plt.xlabel('Samples')
             plt.ylabel('Function Positive Fraction (%)')
-            plt.title(f'Function Positive Fraction of {qseqid}')#of Methyl-Coenzyme M Reductase (Alpha Subunit)    Function Positive Fraction of MCR (α, β, and γ  Subunits) Combined Violin Plot and Swarm Plot for {qseqid
+            plt.title(f'Function Positive Fraction of {qseqid}')
             plt.show()
-            #plt.savefig(f"./figures/Function Positive Fraction of {qseqid}.svg")
             os.makedirs(f"./{save_folder}/{qseqid}/FPF/", exist_ok=True)
             plt.savefig(f"./{save_folder}/{qseqid}/FPF/Function Positive Fraction of {qseqid}.svg")
             plt.tight_layout()
