@@ -5,7 +5,7 @@ import hashlib
 import inspect
 
 class DiskCache:
-    def __init__(self, cache_message:str="Results cached", load_message:str="Results loaded from cache", cache_folder:str="", filename_override:str="", include_func_in_hash:bool=False):
+    def __init__(self, cache_message:str="Results saved", load_message:str="Results loaded", cache_folder:str="", filename_override:str="", include_func_in_hash:bool=False):
         self.cache_message = cache_message
         self.load_message = load_message
         self.cache_folder = cache_folder if cache_folder else os.getcwd()
@@ -53,10 +53,10 @@ class DiskCache:
         else:
             return decorator
 
-    def set_load_message(self, message="Results loaded from cache"):
+    def set_load_message(self, message="Results loaded"):
         self.load_message = message
 
-    def set_cache_message(self, message="Results cached"):
+    def set_cache_message(self, message="Results saved"):
         self.cache_message = message
 
     def set_cache_folder(self, cache_folder):
