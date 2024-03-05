@@ -855,7 +855,7 @@ def main():
         with open(f"./{save_folder}/{qseqid}/overview.txt", 'a+') as f:
             if lev_files_dict.get(qseqid):
                 lev_files=lev_files_dict.get(qseqid)
-                f.write("\nTaxonomic rank abundance:\n")
+                f.write("Taxonomic rank abundance:\n")
                 for rank in ["phylum","family","genus"]:
                     pos_rank_dict = defaultdict(int)
                     all_rank_dict = defaultdict(int)
@@ -896,15 +896,15 @@ def main():
     total_nld = df.index.str.startswith('NLD').sum()
     for qseqid, lev_files in lev_files_dict.items():
         with open(f"./{save_folder}/{qseqid}/overview.txt", 'a+') as f:
-            f.write("Total MAG inclusion\n")
+            f.write("Total MAG inclusion:\n")
             for rep_num,rep_non_zero_count in df[lev_files].count().items():
                 f.write(f'\t{map_rep[rep_num]}\t({rep_num})\t{rep_non_zero_count}/{total_il+total_nld}\n')
 
-            f.write("Israel MAG inclusion\n")
+            f.write("Israel MAG inclusion:\n")
             for rep_num,rep_non_zero_count in df[lev_files][df[lev_files].index.str.startswith('IL')].count().items():
                 f.write(f'\t{map_rep[rep_num]}\t({rep_num})\t{rep_non_zero_count}/{total_il}\n')
 
-            f.write("Netherlands MAG inclusion\n")
+            f.write("Netherlands MAG inclusion:\n")
             for rep_num,rep_non_zero_count in df[lev_files][df[lev_files].index.str.startswith('NLD')].count().items():
                 f.write(f'\t{map_rep[rep_num]}\t({rep_num})\t{rep_non_zero_count}/{total_nld}\n')
 
@@ -915,9 +915,9 @@ def main():
         with open(f"./{save_folder}/{qseqid}/overview.txt", 'a+') as f:
             u_statistic, p_value = mannwhitneyu(fpf_nonzero_il, fpf_nonzero_nld)
             f.write(f'Function Positive Fraction:\n')
-            f.write(f'\tMean: Israel:{mean(fpf_il)}\tIsrael-Nonzero: {mean(fpf_nonzero_il)}\tNeatherlands: {mean(fpf_nld)}\t:Neatherlands-Nonzero: {mean(fpf_nonzero_nld)}\n')
-            f.write(f'\tGeometric Mean: Israel:{gmean(fpf_il)}\tIsrael-Nonzero: {gmean(fpf_nonzero_il)}\tNeatherlands: {gmean(fpf_nld)}\t:Neatherlands-Nonzero: {gmean(fpf_nonzero_nld)}\n')
-            f.write(f'\tMedian: Israel:{median(fpf_il)}\tIsrael-Nonzero: {median(fpf_nonzero_il)}\tNeatherlands: {median(fpf_nld)}\t:Neatherlands-Nonzero: {median(fpf_nonzero_nld)}\n')
+            f.write(f'\tMean: Israel:{mean(fpf_il)}\tIsrael-Nonzero: {mean(fpf_nonzero_il)}\tNeatherlands: {mean(fpf_nld)}\tNeatherlands-Nonzero: {mean(fpf_nonzero_nld)}\n')
+            f.write(f'\tGeometric Mean: Israel:{gmean(fpf_il)}\tIsrael-Nonzero: {gmean(fpf_nonzero_il)}\tNeatherlands: {gmean(fpf_nld)}\tNeatherlands-Nonzero: {gmean(fpf_nonzero_nld)}\n')
+            f.write(f'\tMedian: Israel:{median(fpf_il)}\tIsrael-Nonzero: {median(fpf_nonzero_il)}\tNeatherlands: {median(fpf_nld)}\tNeatherlands-Nonzero: {median(fpf_nonzero_nld)}\n')
             f.write(f'Israel vs Netherlands:\n\tU-statistic: {u_statistic}\n\tp-value: {p_value}\n')
             data = [fpf_nonzero, fpf_nonzero_il, fpf_nonzero_nld]
 
