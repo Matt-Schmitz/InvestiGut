@@ -47,7 +47,8 @@ def main():
     combine_qseqids = False
     save_folder="."
     input_fasta = args.i
-    save_folder = datetime.now().strftime(f"output/%y_%m_%d_%H_%M_%S_investigut_output")
+    now = datetime.now().strftime(f"%y_%m_%d_%H_%M_%S")
+    save_folder = datetime.now().strftime(f"output/{now}_investigut_output")
     if args.o:
         save_folder=args.o
     if args.s:
@@ -70,7 +71,7 @@ def main():
         dmnd_id = args.id    
     
     # Extract filename without extension
-    dmnd_tsv = f"{os.path.splitext(os.path.basename(input_fasta))[0]}.tsv"
+    dmnd_tsv = f"{now}_{os.path.splitext(os.path.basename(input_fasta))[0]}.tsv"
     script_directory = os.path.dirname(os.path.abspath(__file__))
     data_folder = os.path.join(script_directory, 'data')  
     if args.d:
