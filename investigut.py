@@ -42,7 +42,7 @@ def main():
     parser.add_argument('--subject-cover', metavar='{NUM}', help='DIAMOND subject-coverage (default 90.0)')
     parser.add_argument('--id', metavar='{NUM}', help='DIAMOND %%id (default 90)')
     parser.add_argument('--low', action='store_true', help='overrides default DIAMOND query/sujbect coverage and %%id giving all a value of 50')
-    args = parser.parse_args()
+    args, unknown = parser.parse_known_args()
 
     combine_qseqids = False
     save_folder="."
@@ -88,7 +88,7 @@ def main():
             "--max-target-seqs", "100000",
             "--outfmt", "6",
             "qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore", "qcovhsp", "scovhsp", "full_sseq"
-        ]
+        ] + unknown
 
         subprocess.run(command, check=True)
 
