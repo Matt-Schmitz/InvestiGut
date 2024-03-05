@@ -35,6 +35,4 @@ for url in "${urls[@]}"; do
     download_url "$url"
 done
 
-cat "data/Investigut_Proteins.fa.xz_0" "data/Investigut_Proteins.fa.xz_1" > "data/Investigut_Proteins.fa.xz"
-
-xz -d "data/Investigut_Proteins.fa.xz"
+cat "data/Investigut_Proteins.fa.xz_0" "data/Investigut_Proteins.fa.xz_1" | xzcat | diamond makedb --in - -d data/investigut
