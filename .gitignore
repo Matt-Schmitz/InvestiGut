@@ -5,3 +5,4 @@
 output/**
 *.pyc
 __pycache__/
+read_leviatan_abundance*
