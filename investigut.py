@@ -55,9 +55,6 @@ def main():
     if args.m:
         combine_qseqids = True
     
-    dmnd_tsv=""
-    if args.d:
-        dmnd_tsv = args.d
     dmnd_query_coverage = "90.0"
     dmnd_subject_coverage = "90.0"
     dmnd_id = "90"
@@ -71,12 +68,15 @@ def main():
         dmnd_subject_coverage = args.subject_cover
     if args.id: 
         dmnd_id = args.id    
-
+    
+    # Extract filename without extension
+    dmnd_tsv = f"{os.path.splitext(os.path.basename(input_fasta))[0]}.tsv"
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    data_folder = os.path.join(script_directory, 'data')  
+    dmnd_tsv=""
+    if args.d:
+        dmnd_tsv = args.d
     else:
-        # Extract filename without extension
-        dmnd_tsv = f"{os.path.splitext(os.path.basename(input_fasta))[0]}.tsv"
-        script_directory = os.path.dirname(os.path.abspath(__file__))
-        data_folder = os.path.join(script_directory, 'data')
         command = [
             "diamond",
             "blastp",
@@ -622,7 +622,7 @@ def main():
 
         with open(f"./{save_folder}/{qseqid}/overview.txt", 'a+') as f:
             f.write(f'{group[0]}\t{group[1]}\t{c1_yes}/{c1_yes+c1_no}\t{100*c1_yes/(c1_yes+c1_no)}\t{c2_yes}/{c2_yes+c2_no}\t{100*c2_yes/(c2_yes+c2_no)}\t{orig}\t{corr}\n')
-
+    print("Finished writing country data")
 
     # Write Other Demographic Factors
     global_features = [("smoker","ever_smoker",),("BMI",),("gender",),("westernized",),("age",),("antibiotics_current_use",),("ajcc",)]##age_category   ,("ajcc",),("ctp",)    ("smoker","ever_smoker",),("BMI",),("gender",),("westernized",),("age",),("antibiotics_current_use",),("ajcc",)
@@ -735,7 +735,7 @@ def main():
         with open(f"./{save_folder}/{qseqid}/overview.txt", 'a+') as f:
             f.write(f'{"+".join(feature)}\t{group[0].replace(new_line,"")}\t{group[1].replace(new_line,"")}\t{c1_yes}/{c1_yes+c1_no}\t{100*c1_yes/(c1_yes+c1_no)}\t{c2_yes}/{c2_yes+c2_no}\t{100*c2_yes/(c2_yes+c2_no)}\t{orig}\t{corr}\n')
     #print('{:>30} {:>30} {:>30} {:>30}'.format(*("Metadata Feature", "Groups Compared","Original p-Value","BH corrected p-Value"))+"\n")
-
+    print("Finished writing other demographic data")
 
     # Read MAG Abundance
     @disk_cache(cache_folder=data_folder)
@@ -743,7 +743,7 @@ def main():
         return pd.read_excel('/DATA/Matt/mastersproject/Leviatan_species_abundance.xlsx', index_col=0) 
 
     df = read_leviatan_abundance()
-
+    print("Finished reading Leviatan abundance data")
     # Get DMND MAGs
     #print(sum(v for d in all_res.values() for v in d.values()))        # total count of specified columns in all metadata
 
@@ -963,6 +963,7 @@ def main():
             os.makedirs(f"./{save_folder}/{qseqid}/FPF/", exist_ok=True)
             plt.savefig(f"./{save_folder}/{qseqid}/FPF/Function Positive Fraction of {qseqid}.svg")
             plt.tight_layout()
+    print("Finished writing MAG data")
 
 if __name__ == "__main__":
     main()
