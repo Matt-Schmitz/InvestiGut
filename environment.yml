@@ -13,4 +13,5 @@ dependencies:  # Newer package versions may also work, but need to be verified
   - pandas=1.5.3
   - statsmodels=0.13.5
   - ete3=3.1.2
+  - openpyxl=3.0.10
   - bioconda::diamond=2.1.8
