@@ -6,7 +6,7 @@
 2. Enter the InvestiGut folder.  
 `cd InvestiGut`
 3. Create the conda environment.  
-`conda env create -f environment.yaml -n investigut`
+`conda env create -f environment.yml -n investigut`
 4. Activate the environment.  
 `conda activate investigut`
 5. Download proteins and create DIAMOND database. The compressed data take up 79GB. The DIAMOND database will be 311GB. After the DIAMOND database has been created, the compressed fasta data can be deleted.  
