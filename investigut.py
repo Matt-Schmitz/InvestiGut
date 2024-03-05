@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import glob
 import scipy.stats
 import numpy as np
@@ -30,19 +31,22 @@ from datetime import datetime
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Investigut (Version 1.0.0)')
+    parser = argparse.ArgumentParser(description='InvestiGut (Version 1.0.0)')
     parser.add_argument('-i', metavar='{INPUT}', required=True, help='input fasta file')
-    parser.add_argument('-o', metavar='{OUTPUT}', help='output file')
+    parser.add_argument('-o', metavar='{OUTPUT}', help='output folder')
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-s', action='store_true', help='single mode (default)')
     group.add_argument('-m', action='store_true', help='multi mode')
     parser.add_argument('-d', metavar='{DMND_TSV_OUTPUT}', help='optional DIAMOND .tsv output file to skip alignment')
-
+    parser.add_argument('--query-cover', metavar='{NUM}', help='DIAMOND query-coverage (default 90.0)')
+    parser.add_argument('--subject-cover', metavar='{NUM}', help='DIAMOND subject-coverage (default 90.0)')
+    parser.add_argument('--id', metavar='{NUM}', help='DIAMOND %%id (default 90)')
+    parser.add_argument('--low', action='store_true', help='overrides default DIAMOND query/sujbect coverage and %%id giving all a value of 50')
     args = parser.parse_args()
 
     combine_qseqids = False
     save_folder="."
-    qseqid_file = args.i
+    input_fasta = args.i
     save_folder = datetime.now().strftime(f"output/%y_%m_%d_%H_%M_%S_investigut_output")
     if args.o:
         save_folder=args.o
@@ -50,12 +54,47 @@ def main():
         pass
     if args.m:
         combine_qseqids = True
+    
     dmnd_tsv=""
     if args.d:
         dmnd_tsv = args.d
+    dmnd_query_coverage = "90.0"
+    dmnd_subject_coverage = "90.0"
+    dmnd_id = "90"
+    if args.low:
+        dmnd_query_coverage = "50.0"
+        dmnd_subject_coverage = "50.0"
+        dmnd_id = "50"
+    if args.query_cover: 
+        dmnd_query_coverage = args.query_cover
+    if args.subject_cover: 
+        dmnd_subject_coverage = args.subject_cover
+    if args.id: 
+        dmnd_id = args.id    
+
+    else:
+        # Extract filename without extension
+        dmnd_tsv = f"{os.path.splitext(os.path.basename(input_fasta))[0]}.tsv"
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        data_folder = os.path.join(script_directory, 'data')
+        command = [
+            "diamond",
+            "blastp",
+            "--query-cover", dmnd_query_coverage,
+            "--subject-cover", dmnd_subject_coverage,
+            "--id", dmnd_id,
+            "-d", os.path.join(data_folder, 'investigut.dmnd'),
+            "-q", input_fasta,
+            "-o", dmnd_tsv,
+            "--max-target-seqs", "100000",
+            "--outfmt", "6",
+            "qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore", "qcovhsp", "scovhsp", "full_sseq"
+        ]
+        subprocess.run(command, check=True)
+    
 
     # Get Metagenome Lengths
-    @disk_cache(include_func_in_hash=False)
+    @disk_cache(cache_folder=data_folder)
     def metagenome_files_set():
         genome_base = "//home/matt/DATA/Proteins_small4/"
         fasta_files = glob.glob(genome_base + '**/*.fa', recursive=True)
@@ -79,7 +118,7 @@ def main():
     # Get MAG Lengths
     len_lst=[]
 
-    @disk_cache
+    @disk_cache(cache_folder=data_folder)
     def mag_files_set():
         unread=0
         genome_base = "//home/matt/DATA/Proteins_small4/Isolate_collections/"
@@ -191,9 +230,9 @@ def main():
 
     # Get DMND Results
     #dmnd_tsv="/DATA/Matt/Diamond_databases/seaweed_50.tsv"
-    #qseqid_file="/DATA/Matt/Diamond_databases/seaweed.tsv"
+    #input_fasta="/DATA/Matt/Diamond_databases/seaweed.fa"
     all_qseqids=[]
-    with open(qseqid_file, "r") as f:
+    with open(input_fasta, "r") as f:
         for line in f:
             if line.startswith(">"):
                 all_qseqids.append(line[1:].split()[0])
@@ -699,7 +738,7 @@ def main():
 
 
     # Read MAG Abundance
-    @disk_cache
+    @disk_cache(cache_folder=data_folder)
     def read_leviatan_abundance():
         return pd.read_excel('/DATA/Matt/mastersproject/Leviatan_species_abundance.xlsx', index_col=0) 
 
