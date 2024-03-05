@@ -89,9 +89,8 @@ def main():
             "--outfmt", "6",
             "qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore", "qcovhsp", "scovhsp", "full_sseq"
         ]
-        print(" ".join(command))
+
         subprocess.run(command, check=True)
-        print("test2")
 
     # Get Metagenome Lengths
     @disk_cache(cache_folder=data_folder)
