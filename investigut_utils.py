@@ -107,4 +107,3 @@ def zopen(file_path, mode='', write_format=''):
             raise ValueError("Unsupported write_format. Use 'gz', 'bz2', 'xz', or leave empty.")
     else:
         raise ValueError("Unsupported mode. Use 'r' for reading, 'w' for writing, 'x' for exclusive creation, or 'a' for appending.")
-print("Finished loading caching function")
