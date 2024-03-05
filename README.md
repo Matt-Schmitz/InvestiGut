@@ -18,7 +18,8 @@
 Basic usage: `investigut.py -i /PATH/TO/FASTA/FILE`
   
 Options list:
-```-h, --help            show this help message and exit
+```
+-h, --help            show this help message and exit
 -i {INPUT}            input fasta file
 -o {OUTPUT}           output folder
 -s                    single mode (default)
@@ -29,4 +30,5 @@ Options list:
                       DIAMOND subject-coverage (default 90.0)
 --id {NUM}            DIAMOND %id (default 90)
 --low                 overrides default DIAMOND query/sujbect coverage and %id giving all a
-                      value of 50```
+                      value of 50
+```
