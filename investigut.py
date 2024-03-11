@@ -70,7 +70,8 @@ def main():
     # Extract filename without extension
     dmnd_tsv = f"{now}_{os.path.splitext(os.path.basename(input_fasta))[0]}.tsv"
     script_directory = os.path.dirname(os.path.abspath(__file__))
-    data_folder = os.path.join(script_directory, 'data')  
+    data_folder = os.path.join(script_directory, 'data')
+    metadata_folder = os.path.join(data_folder, 'metadata')  
     if args.d:
         dmnd_tsv = args.d
     else:
@@ -139,9 +140,7 @@ def main():
     print("Finished obtaining MAG lengths")
 
     # Get Metadata
-    genome_base = "/DATA/Matt/Genomes/Special_datasets/Human_passolli_assemblies/Meta-data/"
-    meta_files = list(glob.iglob(genome_base + '**/*.tsv*', recursive=True))
-
+    meta_files = list(glob.iglob(metadata_folder + '/**/*.tsv*', recursive=True))
     col_lengths=[]
     all_cols=[]
     for meta_file in meta_files:
