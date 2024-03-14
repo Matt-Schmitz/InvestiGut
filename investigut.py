@@ -584,22 +584,22 @@ def main():
             #print(qseqid)
             previous_qseqid = qseqid
             x_vals, y_vals, bar_labels = figure_data[qseqid]
-            bar_labels_new=[]
-            i=0
-            for x_val, bar_label in zip(x_vals, bar_labels):
-                next_letters=[]
-                for same_group_x_val in sigletters[x_val]:
-                    let = whichletter.get(same_group_x_val)
-                    if let: 
-                        i+=1
-                        next_letters.append(allletters)
-                if x_val == "Denmark": 
-                    pass#print("test",next_letters)
-                if not next_letters: 
-                    next_letters.append(allletters[i])
-                    whichletter[x_val]=allletters[i]
-                    i+=1
-                bar_labels_new.append("".join(next_letters)+"\n"+bar_label)
+            #bar_labels_new=[]
+            #i=0
+            #for x_val, bar_label in zip(x_vals, bar_labels):
+            #    next_letters=[]
+            #    for same_group_x_val in sigletters[x_val]:
+            #        let = whichletter.get(same_group_x_val)
+            #        if let: 
+            #            i+=1
+            #            next_letters.append(allletters)
+            #    if x_val == "Denmark": 
+            #        pass#print("test",next_letters)
+            #    if not next_letters: 
+            #        next_letters.append(allletters[i])
+            #        whichletter[x_val]=allletters[i]
+            #        i+=1
+            #    bar_labels_new.append("".join(next_letters)+"\n"+bar_label)
 
             plt.figure(figsize=(17, 8))
             fig = sns.barplot(x=x_vals, y=y_vals, color='#E29953', width=0.8) ### leaving out bw_adjust leads to a very smooth curve but also negative gene lengths
