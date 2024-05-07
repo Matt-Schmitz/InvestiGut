@@ -36,7 +36,7 @@ conda activate investigut
 Basic usage:
 
 ```bash
-investigut.py -i /PATH/TO/FASTA/FILE`
+investigut.py -i /PATH/TO/FASTA/FILE
 ```
   
 Options list:
