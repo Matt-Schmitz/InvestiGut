@@ -68,4 +68,4 @@ The resulting output can be found under `./examples/Bp1670 + Bp1689`. In this fo
 
 The following is an example of an auto-generated figure of prevalence by country found within the output folder after running the seaweed digestion proteins above through InvestiGut.
 
-![Prevalence_of_Bp1670 + Bp1689_by_Country](https://github.com/Matt-Schmitz/InvestiGut/assets/34464190/aa6925c9-8f66-4ca5-8820-1ad7c2e9ab27)
+![Prevalence_of_Bp1670 + Bp1689_by_Country](https://github.com/Matt-Schmitz/InvestiGut/assets/34464190/12cb4a4a-4cd5-47cd-af14-803e949c310c)
