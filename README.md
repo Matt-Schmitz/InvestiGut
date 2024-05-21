@@ -11,7 +11,7 @@ cd InvestiGut
 ```
 4. Create the environment with [mamba](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html).  
 ```bash
-mamba create --no-channel-priority -n investigutmamba -c bioconda -c conda-forge "python=3.11" "numpy=1.24.3" "scipy=1.10.1" "matplotlib=3.7.1" "seaborn=0.13.0" "pandas=1.5.3" "statsmodels=0.13.5" "ete3=3.1.2" "openpyxl=3.0.10" "bioconda::diamond=2.1.8"
+mamba create --no-channel-priority -n investigut -c bioconda -c conda-forge "python=3.11" "numpy=1.24.3" "scipy=1.10.1" "matplotlib=3.7.1" "seaborn=0.13.0" "pandas=1.5.3" "statsmodels=0.13.5" "ete3=3.1.2" "openpyxl=3.0.10" "bioconda::diamond=2.1.8"
 ```
 5. Activate the environment.  
 ```bash
@@ -28,9 +28,9 @@ $${\color{red}WARNING: \space The \space compressed \space data \space take \spa
 ```bash
 source ~/.bashrc
 ```
-- Reactivate the conda environment:
+- Reactivate the mamba environment:
 ```bash
-conda activate investigut
+mamba activate investigut
 ```
 
 8. Run InvestiGut on chosen proteins.  
