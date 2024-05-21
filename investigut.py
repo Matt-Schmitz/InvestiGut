@@ -94,7 +94,7 @@ def main():
     # Get Metagenome Lengths
     @disk_cache(cache_folder=data_folder)
     def metagenome_files_set():
-        genome_base = "//home/matt/DATA/Proteins_small4/"
+        genome_base = "./output/4_gfftofasta/metagenomes/" # This path doesn't exist before pipeline is run, but disk_cache is used instead
         fasta_files = glob.glob(genome_base + '**/*.fa', recursive=True)
         metagenome_files = set()
         for fasta_file in fasta_files:
@@ -119,7 +119,7 @@ def main():
     @disk_cache(cache_folder=data_folder)
     def mag_files_set():
         unread=0
-        genome_base = "//home/matt/DATA/Proteins_small4/Isolate_collections/"
+        genome_base = "./output/4_gfftofasta/MAGs/" # This path doesn't exist before pipeline is run, but disk_cache is used instead
         fasta_files = glob.glob(genome_base + '**/*.fa', recursive=True)
         metagenome_files = set()
         for fasta_file in fasta_files:
@@ -225,8 +225,6 @@ def main():
     print("Finished indexing metadata name/ID")
 
     # Get DMND Results
-    #dmnd_tsv="/DATA/Matt/Diamond_databases/seaweed_50.tsv"
-    #input_fasta="/DATA/Matt/Diamond_databases/seaweed.fa"
     all_qseqids=[]
     with open(input_fasta, "r") as f:
         for line in f:
@@ -736,7 +734,7 @@ def main():
     # Read MAG Abundance
     @disk_cache(cache_folder=data_folder)
     def read_leviatan_abundance():
-        return pd.read_excel('/DATA/Matt/mastersproject/Leviatan_species_abundance.xlsx', index_col=0) 
+        return pd.read_excel('./data/Leviatan_species_abundance.xlsx', index_col=0) 
 
     df = read_leviatan_abundance()
     print("Finished reading Leviatan abundance data")
@@ -776,7 +774,7 @@ def main():
     # gtdbtk.bac120.summary.tsv      gtdbtk.ar53.summary.tsv
     lev_metadata = dict()
     to_rank = {"d__":"domain","k__":"kingdom","p__":"phylum","c__":"class","o__":"order","f__":"family","g__":"genus","s__":"species"}
-    lev_metadata_files = ["/home/matt/DATA/metadata/gtdbtk.bac120.summary.tsv", "/home/matt/DATA/metadata/gtdbtk.ar53.summary.tsv"]
+    lev_metadata_files = ["./data/metadata/gtdbtk.bac120.summary.tsv", "./data/metadata/gtdbtk.ar53.summary.tsv"]
     for lev_metadata_file in lev_metadata_files:
         with open(lev_metadata_file, 'r') as f:
             for line in f:
