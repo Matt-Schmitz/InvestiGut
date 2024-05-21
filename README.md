@@ -17,11 +17,12 @@ conda env create -f environment.yml -n investigut
 ```bash
 conda activate investigut
 ```
-6. Download proteins and create DIAMOND database. The compressed data take up 79GB. The DIAMOND database will be 311GB. After the DIAMOND database has been created, the compressed fasta data can be deleted.  
+6. Download proteins and create DIAMOND database.  After the DIAMOND database has been created, the compressed fasta data can be deleted.
+$${\color{red}WARNING: \space The \space compressed \space data \space take \space up \space 79GB\space (two \space files). The \space DIAMOND \space database \space will \space be \space 311GB.}$$
 ```bash
 ./download_fasta.sh
 ```
-8. Add the InvestiGut folder to your `~/.bashrc` and apply the changes.  
+7. Add the InvestiGut folder to your `~/.bashrc` and apply the changes.  
 - Add to .bashrc: `export PATH="/PATH/TO/InvestiGut:$PATH"`
 - Enter in terminal:
 ```bash
@@ -32,7 +33,7 @@ source ~/.bashrc
 conda activate investigut
 ```
 
-9. Run InvestiGut on chosen proteins.  
+8. Run InvestiGut on chosen proteins.  
 Basic usage:
 
 ```bash
