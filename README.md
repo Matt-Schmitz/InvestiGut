@@ -1,4 +1,4 @@
-# InvestiGut
+<img src="https://github.com/Matt-Schmitz/InvestiGut/assets/34464190/ce6ea7aa-7ac1-4ee2-9e3a-c2de169f531e" alt="investigut" width="555" height="128"/>
 
 ## Instructions
 1. Clone the repository.  
