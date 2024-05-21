@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+title: InvestiGut
+message: >-
+  Lineage-specific microbial protein prediction within the
+  human gut
+type: software
+authors:
+  - given-names: Matthias Andreas
+    family-names: Schmitz
+    orcid: 'https://orcid.org/0009-0008-4418-4012'
+    affiliation: >-
+      Functional Microbiome Research Group, RWTH University
+      Hospital
+  - given-names: Nicholas John
+    family-names: Dimonaco
+    affiliation: >-
+      Department of Medicine, McMaster University; Farncombe
+      Family Digestive Health Research Institute, McMaster
+      University; School of Biological Sciences, Queen’s
+      University Belfast; Department of Computer Science,
+      Aberystwyth University
+    orcid: 'https://orcid.org/0000-0002-3808-206X'
+  - given-names: Thomas
+    family-names: Clavel
+    orcid: 'https://orcid.org/0000-0002-7229-5595'
+    affiliation: >-
+      Functional Microbiome Research Group, RWTH University
+      Hospital
+  - affiliation: >-
+      Functional Microbiome Research Group, RWTH University
+      Hospital
+    orcid: 'https://orcid.org/0000-0003-2244-7412'
+    given-names: Thomas Charles Adrian
+    family-names: Hitch
+repository-code: 'https://github.com/Matt-Schmitz/InvestiGut'
