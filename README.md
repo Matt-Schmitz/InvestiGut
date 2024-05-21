@@ -41,6 +41,8 @@ investigut.py -i /PATH/TO/FASTA/FILE
 ```
   
 Options list:
+
+Any arguments not recognized by InvesitGut will be passed on to DIAMOND (e.g., `--threads`, `--faster`, `--ultra-sensitive`).
 ```
 -h, --help            show this help message and exit
 -i {INPUT}            input fasta file
