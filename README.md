@@ -15,7 +15,7 @@ mamba create --no-channel-priority -n investigut -c bioconda -c conda-forge "pyt
 ```
 5. Activate the environment.  
 ```bash
-conda activate investigut
+mamba activate investigut
 ```
 6. Download proteins and create DIAMOND database.  After the DIAMOND database has been created, the compressed fasta data can be deleted.
 $${\color{red}WARNING: \space The \space compressed \space data \space take \space up \space 79GB\space (two \space files). The \space DIAMOND \space database \space will \space be \space 311GB.}$$
