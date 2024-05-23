@@ -28,7 +28,7 @@ from datetime import datetime
 
 
 def main():
-    parser = argparse.ArgumentParser(description='InvestiGut (Version 1.0.0)')
+    parser = argparse.ArgumentParser(description='InvestiGut (Version 0.1)')
     parser.add_argument('-i', metavar='{INPUT}', required=True, help='input fasta file')
     parser.add_argument('-o', metavar='{OUTPUT}', help='output folder')
     group = parser.add_mutually_exclusive_group()
