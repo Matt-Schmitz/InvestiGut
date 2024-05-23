@@ -1,0 +1,106 @@
+process DIAMOND_BLASTP {
+    tag "$meta.id"
+    label 'process_medium'
+    cpus = 72
+    conda "${moduleDir}/environment.yml"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/diamond:2.1.8--h43eeafb_0' :
+        'biocontainers/diamond:2.1.8--h43eeafb_0' }"
+
+    input:
+    tuple val(meta) , path(fasta)
+    tuple val(meta2), path(db)
+    val out_ext
+    val blast_columns
+
+    output:
+    tuple val(meta), path('*.blast'), optional: true, emit: blast
+    tuple val(meta), path('*.xml')  , optional: true, emit: xml
+    tuple val(meta), path('*.txt')  , optional: true, emit: txt
+    tuple val(meta), path('*.daa')  , optional: true, emit: daa
+    tuple val(meta), path('*.sam')  , optional: true, emit: sam
+    tuple val(meta), path('*.tsv')  , optional: true, emit: tsv
+    tuple val(meta), path('*.paf')  , optional: true, emit: paf
+    path "versions.yml"             , emit: versions
+
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    def is_compressed = fasta.getExtension() == "gz" ? true : false
+    def fasta_name = is_compressed ? fasta.getBaseName() : fasta
+    def columns = blast_columns ? "${blast_columns}" : ''
+    switch ( out_ext ) {
+        case "blast": outfmt = 0; break
+        case "xml": outfmt = 5; break
+        case "txt": outfmt = 6; break
+        case "daa": outfmt = 100; break
+        case "sam": outfmt = 101; break
+        case "tsv": outfmt = 102; break
+        case "paf": outfmt = 103; break
+        default:
+            outfmt = '6';
+            out_ext = 'txt';
+            log.warn("Unknown output file format provided (${out_ext}): selecting DIAMOND default of tabular BLAST output (txt)");
+            break
+    }
+    """
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fasta} > ${fasta_name}
+    fi
+
+    DB=`find -L ./ -name "*.dmnd" | sed 's/\\.dmnd\$//'`
+
+    diamond \\
+        blastp \\
+        --threads ${task.cpus} \\
+        --db \$DB \\
+        --query ${fasta_name} \\
+        --outfmt ${outfmt} ${columns} \\
+        ${args} \\
+        --out ${prefix}.${out_ext}
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        diamond: \$(diamond --version 2>&1 | tail -n 1 | sed 's/^diamond version //')
+    END_VERSIONS
+    """
+
+    stub:
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    switch ( out_ext ) {
+        case "blast": outfmt = 0; break
+        case "xml": outfmt = 5; break
+        case "txt": outfmt = 6; break
+        case "daa": outfmt = 100; break
+        case "sam": outfmt = 101; break
+        case "tsv": outfmt = 102; break
+        case "paf": outfmt = 103; break
+        default:
+            outfmt = '6';
+            out_ext = 'txt';
+            log.warn("Unknown output file format provided (${out_ext}): selecting DIAMOND default of tabular BLAST output (txt)");
+            break
+    }
+
+    """
+    touch ${prefix}.${out_ext}
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        diamond: \$(diamond --version 2>&1 | tail -n 1 | sed 's/^diamond version //')
+    END_VERSIONS
+    """
+}
+
+workflow {
+    // Define input with metadata
+    def input_data = [meta: [id: 'sample1', source: 'experiment_1'], fasta: '/DATA-Backup/Matt/InvestiGut/examples/seaweed.fa']
+    def db_data = [meta2: [id: 'db1', source: 'reference_db'], db: '/DATA-Backup/Matt/InvestiGut/data/investigut.dmnd']
+
+    // Run the DIAMOND_BLASTP process
+    DIAMOND_BLASTP(input_data, db_data, 'txt', 'qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qcovhsp scovhsp full_sseq')
+}
