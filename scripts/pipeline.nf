@@ -10,7 +10,7 @@ inputDirMetagenomes = inputDir + "/metagenomes"
 outputDir = '/home/horneflablinux/Documents/workflows/investigut_pipeline/output'
 krakendbDir = '/home/horneflablinux/Documents/workflows/investigut_pipeline/tmpfs'
 
-params.threads = 14
+params.threads = Runtime.runtime.availableProcessors() // maximum number available
 params.memory_mapping = true
 
 /* Available tools for gene prediction:
@@ -24,11 +24,13 @@ params.tools_for_org_group = """{
     "Viruses":["MetaGeneAnnotator","GeneMarkS","GeneMarkS2"]
     }"""
 
+
+// Leaving these paths blank will assume that they have been added to PATH
 pathToGeneMarkS = "/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gene_prediction/genemark_suite_linux_64/gmsuite/gmsn.pl"
 pathToGeneMarkS2 = "/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gene_prediction/gms2_linux_64/gms2.pl"
 pathToGeneMarkST = "/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gene_prediction/gmst_linux_64/gmst.pl"
 pathToMetaGeneMark = "/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gene_prediction/MetaGeneMark_linux_64/mgm/gmhmmp"
-pathToMetaGeneMark2 = "/PATH/TO/MetaGeneMark2"
+pathToMetaGeneMark2 = "/PATH/TO/run_mgm.pl"
 
 // ************************************************************************
 // ************************* END OF USER SETTINGS *************************

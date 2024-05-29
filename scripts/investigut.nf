@@ -7,7 +7,7 @@ params.dmnd_db = '/home/horneflablinux/Documents/workflows/investigut_pipeline/o
 params.query_cover = 90.0 // DIAMOND query-coverage
 params.subject_cover = 90.0 // DIAMOND subject-coverage
 params.id = 90 // DIAMOND %id
-params.threads = Runtime.runtime.availableProcessors()
+params.threads = Runtime.runtime.availableProcessors() // maximum number available
 params.help = false
 
 if (params.s && params.m) {
