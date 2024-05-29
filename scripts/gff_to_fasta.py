@@ -50,7 +50,6 @@ def parse_gff(file, tool):
                     stop = m[3]
                     strand = m[4]
                     res.append([name, [(int(start), int(stop))], strand])
-        elif tool == "GeneMarkES": return [] # TODO: multiple CDSs for one gene
         elif tool == "Augustus":
             contig_name = ""
             contig_strand = ""

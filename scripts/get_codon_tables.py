@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
 import re
-from ete3 import NCBITaxa
 import pickle
 import multiprocessing
 import sys
+from os.path import dirname, join
 
 dir_base = sys.argv[1]
-kraken_files = sys.argv[2:]
+nodes_dmp = sys.argv[2]
+kraken_files = sys.argv[3:]
 
 all_taxids = set()
 lock = multiprocessing.Lock()
@@ -24,31 +25,10 @@ with multiprocessing.Pool() as pool:
         with lock:
             all_taxids.update(taxids)
 
-mag_taxids=dict()
-# adds taxids from Leviatan MAGs to all_taxids
-ncbi = NCBITaxa()
-metadata_files = [f"{dir_base}/gtdbtk.bac120.summary.tsv", f"{dir_base}/gtdbtk.ar53.summary.tsv"]
-for metadata_file in metadata_files:
-    with open(metadata_file, 'r') as f:
-        for line in f:
-            m = re.match(r"(Rep_\d+)\t(\w__[^\t]+)\t", line)
-            if m: 
-                tax_names = m[2].split(";")
-                tax_names = [re.sub(r"_\w","", re.sub(r"\w__", "", x)) for x in tax_names[::-1]]
-                tax_dict = ncbi.get_name_translator(tax_names)
-                for name in tax_names:
-                    if name in tax_dict:
-                        all_taxids.add(tax_dict[name][0])
-                        mag_taxids[m[1]] =tax_dict[name][0]
-                        break
-
-with open("mag_taxids.pkl", 'wb') as f:
-    pickle.dump(mag_taxids, f)
-
 
 # makes conversion dictionary between taxids and codon tables
 tax_gc_convert = dict()
-with open(f"{dir_base}/nodes.dmp", 'r') as f:
+with open(nodes_dmp, 'r') as f:
     for line in f:
         m = re.match(r"([^\t\|]*?)\t\|\t[^\t\|]*?\t\|\t[^\t\|]*?\t\|\t[^\t\|]*?\t\|\t[^\t\|]*?\t\|\t[^\t\|]*?\t\|\t([^\t\|]*?)\t\|\t", line)
         node_taxid = int(m[1])

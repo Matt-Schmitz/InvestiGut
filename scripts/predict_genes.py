@@ -5,27 +5,19 @@ import subprocess
 import sys
 import json
 from os.path import exists, dirname, getsize
+import shutil
 
 fasta_file = sys.argv[1]
 dir_base = sys.argv[2]
-pathToGeneMarkS = sys.argv[3]
-pathToGeneMarkS2 = sys.argv[4]
-pathToGeneMarkST = sys.argv[5]
-pathToMetaGeneMark = sys.argv[6]
-pathToMetaGeneMark2 = sys.argv[7]
+pathToGeneMarkS = sys.argv[3] or "gmsn.pl"
+pathToGeneMarkS2 = sys.argv[4] or "gms2.pl"
+pathToGeneMarkST = sys.argv[5] or "gmst.pl"
+pathToMetaGeneMark = sys.argv[6] or "gmhmmp"
+pathToMetaGeneMark2 = sys.argv[7] or "run_mgm.pl"
 sorted_mag_metagenomes = sys.argv[8].split()
 tools_for_org_group = json.loads(sys.argv[9])
 
-mgm_mod = dirname(pathToMetaGeneMark) + "/MetaGeneMark_v1.mod"
-
-print("!!!!!!!!!!!!!!!!!!")
-print(fasta_file)
-print(dir_base)
-print(sorted_mag_metagenomes)
-print(type(sorted_mag_metagenomes))
-print("!!!!!!!!!!!!!!!!!!")
-
-
+mgm_mod = (dirname(pathToMetaGeneMark) if sys.argv[6] else dirname(shutil.which("gmhmmp"))) + "/MetaGeneMark_v1.mod" 
 
 tools_commands = {
                   "GlimmerHMM": "glimmerhmm {gen_file} "+f"{dir_base}/gene_prediction/TrainGlimmM_S_cerevisiae"+" -o {pred_file} -g",

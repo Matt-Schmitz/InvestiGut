@@ -11,41 +11,14 @@ from os.path import basename
 fasta_file = str(sys.argv[1])
 dir_base = sys.argv[2]
 
-
-
-def load_data(filename):
-    with open(filename, 'rb') as file:
-        data = pickle.load(file)
-    return data
-
-
-tax_table_pairs = load_data(os.path.join(dir_base, "tax_table_pairs.pkl"))
-
-
-def get_gen_code(taxid):
-    if int(taxid)==0: return 11 # Default bacterial codon table for unclassified samples
-    try: 
-        return tax_table_pairs[int(taxid)]
-    except:
-        raise Exception(f'taxid {taxid} is not in genetic codes table')
-
-mag_taxids = load_data(os.path.join(dir_base, "mag_taxids.pkl"))
-
-def get_mag_taxid(name):
-    return mag_taxids[name]
-
-
-
-
-
 rep_org_group={"Bacteria":[], "Archaea":[]}
-with open("/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gtdbtk.bac120.summary.tsv", 'r') as f:
+with open(f"{dir_base}/data/metadata/gtdbtk.bac120.summary.tsv", 'r') as f:
     for line in f:
         m = re.match(r"(Rep_\d+)\t(\w__[^\t]+)\t", line)
         if m: 
             rep_name = m[1]
             rep_org_group["Bacteria"].append(rep_name)
-with open("/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gtdbtk.ar53.summary.tsv", 'r') as f:
+with open(f"{dir_base}/data/metadata/gtdbtk.ar53.summary.tsv", 'r') as f:
     for line in f:
         m = re.match(r"(Rep_\d+)\t(\w__[^\t]+)\t", line)
         if m: 
@@ -68,7 +41,8 @@ def split_mags(fasta_file):
         whole_fasta_file = []
         while (one_line:=f.readline()):
             whole_fasta_file.append(one_line)
-        gen_code =str(get_gen_code(get_mag_taxid(org_name)))
+        if org_name[:4]!="Rep_": raise Exception("wrong org name")
+        gen_code ="4" if org_name in ["Rep_1090", "Rep_1284", "Rep_1667", "Rep_1668"] else "11"
         d[(fasta_file, org_group, gen_code)].append("".join(whole_fasta_file))
     #(?:\.fa|\.fna|\.fasta)
     pattern = r'^(.+?)(?:\.gz)?$'
