@@ -19,8 +19,10 @@ def load_data(filename):
         data = pickle.load(file)
     return data
 
-
-tax_table_pairs = load_data(os.path.join(dir_base, "tax_table_pairs.pkl"))
+print("!!!!!!!!!!!!!!!!!!!!!!!")
+print(dir_base)
+print(os.path.join(dir_base, "/scripts/tax_table_pairs.pkl"))
+tax_table_pairs = load_data(os.path.join(dir_base, "scripts/tax_table_pairs.pkl"))
 
 
 def get_gen_code(taxid):

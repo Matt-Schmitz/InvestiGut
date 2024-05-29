@@ -6,3 +6,8 @@ output/**
 *.pyc
 __pycache__/
 read_leviatan_abundance*
+.nextflow*
+work/
+*.ipynb
+.~lock*
+tax_table_pairs.pkl

@@ -4,14 +4,15 @@
 // ********** MOFIFY HERE TO CHANGE INPUT AND OUTPUT DIRECTORIES **********
 // ************************************************************************
 
-inputDir = '/home/horneflablinux/Documents/workflows/investigut_pipeline/input'
-inputDirMAGs = inputDir + "/MAGs"
-inputDirMetagenomes = inputDir + "/metagenomes"
-outputDir = '/home/horneflablinux/Documents/workflows/investigut_pipeline/output'
-krakendbDir = '/home/horneflablinux/Documents/workflows/investigut_pipeline/tmpfs'
+params.inputDir = '/DATA-Backup/Matt/input'
+inputDirMAGs = params.inputDir + "/MAGs"
+inputDirMetagenomes = params.inputDir + "/metagenomes"
+params.outputDir = '/DATA-Backup/Matt/output'
+params.krakendbDir = '/DATA-Backup/Matt/tmpfs'
 
 params.threads = Runtime.runtime.availableProcessors() // maximum number available
-params.memory_mapping = true
+params.memoryMapping = true
+pathToNodesDmp = "/DATA-Backup/Matt/nodes.dmp"
 
 /* Available tools for gene prediction:
    "Augustus", "FragGeneScan", "GeneMarkS", "GeneMarkS2", "GeneMarkST", "GlimmerHMM", "MetaGeneAnnotator", 
@@ -26,25 +27,26 @@ params.tools_for_org_group = """{
 
 
 // Leaving these paths blank will assume that they have been added to PATH
-pathToGeneMarkS = "/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gene_prediction/genemark_suite_linux_64/gmsuite/gmsn.pl"
-pathToGeneMarkS2 = "/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gene_prediction/gms2_linux_64/gms2.pl"
-pathToGeneMarkST = "/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gene_prediction/gmst_linux_64/gmst.pl"
-pathToMetaGeneMark = "/home/horneflablinux/Documents/workflows/investigut_pipeline/pipeline/gene_prediction/MetaGeneMark_linux_64/mgm/gmhmmp"
-pathToMetaGeneMark2 = "/PATH/TO/run_mgm.pl"
+// The lisence of GeneMark* software does not allow them to be packaged with InvestiGut
+pathToGeneMarkS = ""     // "/PATH/TO/gmsn.pl"
+pathToGeneMarkS2 = ""    // "/PATH/TO/gms2.pl"
+pathToGeneMarkST = ""    // "/PATH/TO/gmst.pl"
+pathToMetaGeneMark = ""  // "/PATH/TO/gmhmmp"
+pathToMetaGeneMark2 = "" // "/PATH/TO/run_mgm.pl"
 
 // ************************************************************************
 // ************************* END OF USER SETTINGS *************************
 // ************************************************************************
 
-kraken2PredictDir = outputDir + "/1_kraken2predict"
-sortedMagsMetagenomesDir = outputDir + "/2_sortedmagmetagenomes"
-predictGenesDir = outputDir + "/3_predictgenes"
-gffToFastaDir = outputDir + "/4_gfftofasta"
-diamondDbDir = outputDir + "/5_diamonddb"
+kraken2PredictDir = params.outputDir + "/1_kraken2predict"
+sortedMagsMetagenomesDir = params.outputDir + "/2_sortedmagmetagenomes"
+predictGenesDir = params.outputDir + "/3_predictgenes"
+gffToFastaDir = params.outputDir + "/4_gfftofasta"
+diamondDbDir = params.outputDir + "/5_diamonddb"
 
 // PATH/TO/aa/bb/cc/INPUT_DIR/xx/yy/zz/FILE.fa.gz -> /xx/yy/zz/
 params.getPathToFile = { path ->
-    def relativePath = path.toString().substring(inputDir.length())
+    def relativePath = path.toString().substring(params.inputDir.length())
     def lastIndex = relativePath.lastIndexOf('/')
     return relativePath.take(lastIndex + 1)
 }
@@ -71,8 +73,8 @@ process KRAKEN2_PREDICT {
     script:
     """
     kraken2 \
-        --db ${krakendbDir} \
-        ${params.memory_mapping ? '--memory-mapping' : ''} \
+        --db ${params.krakendbDir} \
+        ${params.memoryMapping ? '--memory-mapping' : ''} \
         --report ${metagenomesChannel.baseName}.krakentree \
         --output ${metagenomesChannel.baseName}.krakentaxid \
         --use-names \
@@ -83,32 +85,15 @@ process KRAKEN2_PREDICT {
     
 }
 
-process GET_CODON_TABLES_OLD {
-    publishDir "${baseDir}", mode: 'symlink'
-
-    input:
-    val throwaway
-
-    script:
-    """
-    python3 ${baseDir}/get_codon_tables.py
-    """
-
-    output:
-    path "tax_table_pairs.pkl"
-    val "", emit: throwaway
-
-}
-
 process GET_CODON_TABLES {
-    publishDir "${baseDir}", mode: 'symlink'
+    publishDir "${baseDir}/scripts", mode: 'symlink'
 
     input:
     path krakentaxid
 
     script:
     """
-    python3 ${baseDir}/get_codon_tables.py ${baseDir} ${krakentaxid}
+    python3 ${baseDir}/scripts/get_codon_tables.py ${baseDir} ${pathToNodesDmp} ${krakentaxid}
     """
 
     output:
@@ -132,7 +117,7 @@ process SORT_METAGENOMES {
     
     script:
     """
-    python3 ${baseDir}/sort_metagenomes.py $metagenomesChannel '${krakentree}' '${krakentaxid}' '${baseDir}'
+    python3 ${baseDir}/scripts/sort_metagenomes.py $metagenomesChannel '${krakentree}' '${krakentaxid}' '${baseDir}'
     """
 }
 
@@ -150,7 +135,7 @@ process SORT_MAGS {
 
     script:
     """
-    python3 ${baseDir}/sort_mags.py $magsChannel '${baseDir}'
+    python3 ${baseDir}/scripts/sort_mags.py $magsChannel '${baseDir}'
     """
 }
 
@@ -166,7 +151,7 @@ process PREDICT_GENES {
 
     script:
     """
-    python3 ${baseDir}/predict_genes.py $magsAndMetagenomesChannel '${baseDir}' '${pathToGeneMarkS}' '${pathToGeneMarkS2}' '${pathToGeneMarkST}' '${pathToMetaGeneMark}' '${pathToMetaGeneMark2}' '${sorted_mags_and_metagenomes}' '${params.tools_for_org_group}'
+    python3 ${baseDir}/scripts/predict_genes.py $magsAndMetagenomesChannel '${baseDir}' '${pathToGeneMarkS}' '${pathToGeneMarkS2}' '${pathToGeneMarkST}' '${pathToMetaGeneMark}' '${pathToMetaGeneMark2}' '${sorted_mags_and_metagenomes}' '${params.tools_for_org_group}'
     """
 }
 
@@ -182,7 +167,7 @@ process GFF_TO_FASTA {
 
     script:
     """
-    python3 ${baseDir}/gff_to_fasta.py $magsAndMetagenomesChannel '${baseDir}' '${sorted_mags_and_metagenomes}' '${predictions}'
+    python3 ${baseDir}/scripts/gff_to_fasta.py $magsAndMetagenomesChannel '${baseDir}' '${sorted_mags_and_metagenomes}' '${predictions}'
     """
 }
 
