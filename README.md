@@ -11,14 +11,23 @@ cd InvestiGut
 ```
 3. Create the environment with [mamba](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html).  
 ```bash
-mamba create --no-channel-priority -n investigut -c bioconda -c conda-forge "python=3.11" "numpy=1.24.3" "scipy=1.10.1" "conda-forge::matplotlib-base" "seaborn=0.13.0" "pandas=1.5.3" "statsmodels=0.13.5" "ete3=3.1.2" "openpyxl=3.0.10" "bioconda::diamond=2.1.8"
+mamba create --no-channel-priority -n investigut \
+    -c bioconda -c conda-forge \
+    "python=3.11" "numpy=1.24.3" "scipy=1.10.1" \
+    "conda-forge::matplotlib-base" "seaborn=0.13.0" \
+    "pandas=1.5.3" "statsmodels=0.13.5" "ete3=3.1.2" \
+    "openpyxl=3.0.10" "bioconda::diamond=2.1.8"
 ```
 4. Activate the environment.  
 ```bash
 mamba activate investigut
 ```
 5. Download proteins and create DIAMOND database.  After the DIAMOND database has been created, the compressed fasta data can be deleted.
-$${\color{red}WARNING: \space The \space compressed \space data \space take \space up \space 79GB\space (two \space files). The \space DIAMOND \space database \space will \space be \space 311GB.}$$
+
+> [!WARNING]
+> The compressed data take up 79GB (two files).
+> The DIAMOND database will take up 311GB.
+
 ```bash
 ./download_fasta.sh
 ```
