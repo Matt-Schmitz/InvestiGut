@@ -159,11 +159,13 @@ mv /PATH/TO/taxo.k2d /PATH/TO/tmpfs/taxo.k2d
 The lisence of GeneMark* software does not allow them to be packaged with InvestiGut, so they must be manually downloaded.
 
 [https://genemark.bme.gatech.edu/GeneMark/license_download.cgi](https://genemark.bme.gatech.edu/GeneMark/license_download.cgi)
+```text
 GeneMarkS     -> Add    /PATH/TO/gmsn.pl to PATH for usage with InvestiGut
 GeneMarkS2    -> Add    /PATH/TO/gms2.pl to PATH for usage with InvestiGut
 GeneMarkST    -> Add    /PATH/TO/gmst.pl to PATH for usage with InvestiGut
 MetaGeneMark  -> Add     /PATH/TO/gmhmmp to PATH for usage with InvestiGut
 MetaGeneMark2 -> Add /PATH/TO/run_mgm.pl to PATH for usage with InvestiGut
+```
 
 8. Set parameters and run the pipeline.
 
