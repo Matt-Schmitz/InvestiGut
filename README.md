@@ -198,6 +198,10 @@ pathToMetaGeneMark = ""  // "/PATH/TO/gmhmmp"
 pathToMetaGeneMark2 = "" // "/PATH/TO/run_mgm.pl"
 ```
 
+> [!WARNING]
+> The input files must be in the format {study_name}__{sample_id}.fa(.gz)? as study_name and sample_id appear in 
+[https://waldronlab.io/curatedMetagenomicData/](https://waldronlab.io/curatedMetagenomicData/)
+
 Run the pipeline
 ```bash
 nextflow pipeline.nf
