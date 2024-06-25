@@ -4,15 +4,15 @@
 // ********** MOFIFY HERE TO CHANGE INPUT AND OUTPUT DIRECTORIES **********
 // ************************************************************************
 
-params.inputDir = '/DATA-Backup/Matt/input'
+params.inputDir = '/PATH/TO/input'
 inputDirMAGs = params.inputDir + "/MAGs"
 inputDirMetagenomes = params.inputDir + "/metagenomes"
-params.outputDir = '/DATA-Backup/Matt/output'
-params.krakendbDir = '/DATA-Backup/Matt/tmpfs'
+params.outputDir = '/PATH/TO/output'
+params.krakendbDir = '/PATH/TO/tmpfs'
 
 params.threads = Runtime.runtime.availableProcessors() // maximum number available
 params.memoryMapping = true
-pathToNodesDmp = "/DATA-Backup/Matt/nodes.dmp"
+params.pathToNodesDmp = "/PATH/TO/nodes.dmp"
 
 /* Available tools for gene prediction:
    "Augustus", "FragGeneScan", "GeneMarkS", "GeneMarkS2", "GeneMarkST", "GlimmerHMM", "MetaGeneAnnotator", 
@@ -93,7 +93,7 @@ process GET_CODON_TABLES {
 
     script:
     """
-    python3 ${baseDir}/scripts/get_codon_tables.py ${baseDir} ${pathToNodesDmp} ${krakentaxid}
+    python3 ${baseDir}/scripts/get_codon_tables.py ${baseDir} ${params.pathToNodesDmp} ${krakentaxid}
     """
 
     output:

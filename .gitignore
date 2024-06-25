@@ -11,3 +11,4 @@ work/
 *.ipynb
 .~lock*
 tax_table_pairs.pkl
+nextflow.config
