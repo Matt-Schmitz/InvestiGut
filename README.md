@@ -82,7 +82,7 @@ The following is an example of an auto-generated figure of prevalence by country
 ## Database Creation
 
 > [!TIP]
-> A premade database is automatically downloaded in the instructions above. This step is only necessary to create a custom database.
+> A premade database is automatically downloaded when following the instructions above. The steps below are only necessary to create a custom database.
 
 1. Clone the repository.  
 ```bash
@@ -132,7 +132,7 @@ Make the tmpfs folder that will be mounted.
 mkdir /PATH/TO/tmpfs
 ```
 
-Edit system configuration file.
+Edit the system configuration file.
 ```bash
 sudo nano /etc/fstab
 ```
@@ -143,7 +143,7 @@ In the fstab file, add the following line. Modify the path to the tmpfs director
 tmpfs /PATH/TO/tmpfs tmpfs rw,nodev,noexec,nosuid,size=120g,user,noauto 0 0
 ```
 
-Reload the modified fstab file
+Reload the modified fstab file.
 ```bash
 sudo systemctl daemon-reload
 ```
@@ -169,7 +169,7 @@ MetaGeneMark2 -> Add /PATH/TO/run_mgm.pl to PATH for usage with InvestiGut
 
 8. Set parameters and run the pipeline.
 
-In the pipeline.nf file there are the following options.
+In the pipeline.nf file, there are the following options.
 
 ```bash
 params.inputDir = '/PATH/TO/input'
@@ -204,7 +204,7 @@ pathToMetaGeneMark2 = "" // "/PATH/TO/run_mgm.pl"
 > The input files must be in the format {study_name}__{sample_id}.fa(.gz)? as study_name and sample_id appear in 
 [https://waldronlab.io/curatedMetagenomicData/](https://waldronlab.io/curatedMetagenomicData/)
 
-Run the pipeline
+Run the pipeline.
 ```bash
 nextflow pipeline.nf
 ```
