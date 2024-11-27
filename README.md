@@ -1,5 +1,11 @@
 <img src="https://github.com/Matt-Schmitz/InvestiGut/assets/34464190/ce6ea7aa-7ac1-4ee2-9e3a-c2de169f531e" alt="investigut" width="555" height="128"/>
 
+## What is InvestiGUT?
+InvestiGUT has been designed to allow users to study the ecological prevalence of a protein sequence across human gut microbiome samples.
+
+## How does InvestiGUT work?
+We have already predicted the protein repertoire of nearly 10,000 human gut metagenomes which are used as a database. By comparing your queried sequence against this database we can link the occurance of your protein across disease cohorts as well as demographic information such as age or geographical location of the sampled humans. In addition to the metagenomes, the inclusion of representative genomes from a range of bacteria allow us to determine the taxonomic groups that encode the protein of interest.
+
 ## Instructions
 1. Clone the repository.  
 ```bash
