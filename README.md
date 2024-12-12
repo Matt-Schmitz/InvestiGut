@@ -1,5 +1,16 @@
 <img src="https://github.com/Matt-Schmitz/InvestiGut/assets/34464190/ce6ea7aa-7ac1-4ee2-9e3a-c2de169f531e" alt="investigut" width="555" height="128"/>
 
+## What is InvestiGUT?
+InvestiGUT has been designed to allow users to study the ecological prevalence of a protein sequence across human gut microbiome samples.
+
+## How does InvestiGUT work?
+InvestiGUT (v0.1) accepts either a single protein sequence or a set of sequences, as defined by the options ‘–s’ or ‘–m’ respectively. User-provided protein sequences are matched to the collection of human gut microbiome proteins via DIAMOND (v2.1.8.162)64 alignment with a default minimum query and subject coverage of 90% and identity of 90%, which can be defined by the user. User proteins can be analysed individually (-s), or as a group (-m) where all proteins must be present within a sample to be considered. The group analysis allows users to determine how frequently all enzymes in a certain pathway or all subunits in a protein complex are present. Output is divided into metagenomic and species-based analysis results, with both being available as raw data in the form of TSV files and as automatically generated vector figures. 
+
+Metadata for each metagenomic sample included age, sexgender, BMI, smoker-status, westernised-diet status, use of antibiotics, and geographical location. Additionally, disease prevalence includes output for Crohn’s disease, ulcerative colitis, colorectal cancer, Clostridioides difficile infection, type-2 diabetes, rheumatoid arthritis, and fatty liver disease. Metadata vocabulary is consistent with that used in the curatedMetagenomeData repository. Prevalence of the queried sequence in each of these groups is quantified, and compared either between categories, or healthy controls, using Fisher’s exact test from the scipy.stats65 module in Python. 
+
+Querying the user input protein against the 3,594 nonredundant genomes provides a list of species which contain the protein, termed “function-positive species”. The taxonomic range of the protein is determined by the prevalence of the protein with each genus, family, and phylum of positive species. The function-positive fraction is obtained as the cumulative relative abundance of function-positive genomes across 4,624 individuals for which pre-computed relative abundance values are available.
+
+
 ## Instructions
 1. Clone the repository.  
 ```bash
