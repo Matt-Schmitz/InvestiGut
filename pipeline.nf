@@ -81,6 +81,9 @@ process KRAKEN2_PREDICT {
         --confidence 0.15 \
         --threads ${params.threads} \
         $metagenomesChannel
+    if [ ! -f ${metagenomesChannel.baseName}.krakentaxid ]; then
+        touch ${metagenomesChannel.baseName}.krakentaxid
+    fi
     """
     
 }
