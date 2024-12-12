@@ -1,3 +1,8 @@
+.nextflow*
+nextflow.config
+*.ipynb
+*.pkl
+work/**
 *.dmnd
 *.fa
 *.xz
@@ -6,3 +11,7 @@ output/**
 *.pyc
 __pycache__/
 read_leviatan_abundance*
+*.fasta
+*.fa
+*.fna
+*.faa
