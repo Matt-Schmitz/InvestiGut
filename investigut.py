@@ -10,13 +10,13 @@ from collections import Counter, defaultdict
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
-from countrycode import country_convert
+from scripts.countrycode import country_convert
 from ete3 import NCBITaxa
 import re
 from scipy.stats import mannwhitneyu
 import os
 import pickle
-from investigut_utils import disk_cache
+from scripts.investigut_utils import disk_cache
 import matplotlib.pyplot as plt
 from matplotlib import ticker as mticker
 import seaborn as sns

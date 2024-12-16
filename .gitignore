@@ -11,6 +11,11 @@ output/**
 *.pyc
 __pycache__/
 read_leviatan_abundance*
+.nextflow*
+*.ipynb
+.~lock*
+tax_table_pairs.pkl
+nextflow.config
 *.fasta
 *.fa
 *.fna
