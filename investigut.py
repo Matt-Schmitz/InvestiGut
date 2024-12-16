@@ -28,7 +28,11 @@ from datetime import datetime
 
 
 def main():
-    parser = argparse.ArgumentParser(description='InvestiGut (Version 0.1)')
+    parser = argparse.ArgumentParser(
+        description=('InvestiGut (Version 1.0)\n'
+                     'Any arguments not recognized by InvesitGut will be passed on to DIAMOND (e.g., --threads, --faster, --ultra-sensitive)'
+        )
+    )
     parser.add_argument('-i', metavar='{INPUT}', required=True, help='input fasta file')
     parser.add_argument('-o', metavar='{OUTPUT}', help='output folder')
     group = parser.add_mutually_exclusive_group()
