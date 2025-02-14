@@ -4,7 +4,7 @@
 InvestiGUT has been designed to allow users to study the ecological prevalence of a protein sequence across human gut microbiome samples.
 
 ## How does InvestiGUT work?
-InvestiGUT (v0.1) accepts either a single protein sequence or a set of sequences, as defined by the options ‘–s’ or ‘–m’ respectively. User-provided protein sequences are matched to the collection of human gut microbiome proteins via DIAMOND (v2.1.8.162)64 alignment with a default minimum query and subject coverage of 90% and identity of 90%, which can be defined by the user. User proteins can be analysed individually (-s), or as a group (-m) where all proteins must be present within a sample to be considered. The group analysis allows users to determine how frequently all enzymes in a certain pathway or all subunits in a protein complex are present. Output is divided into metagenomic and species-based analysis results, with both being available as raw data in the form of TSV files and as automatically generated vector figures. 
+InvestiGUT (v0.1) accepts either a single protein sequence or a set of sequences, as defined by the options ‘–s’ or ‘–m’ respectively. User-provided protein sequences are matched to the collection of human gut microbiome proteins via DIAMOND (v2.1.11) alignment with a default minimum query and subject coverage of 90% and identity of 90%, which can be defined by the user. User proteins can be analysed individually (-s), or as a group (-m) where all proteins must be present within a sample to be considered. The group analysis allows users to determine how frequently all enzymes in a certain pathway or all subunits in a protein complex are present. Output is divided into metagenomic and species-based analysis results, with both being available as raw data in the form of TSV files and as automatically generated vector figures. 
 
 Metadata for each metagenomic sample included age, sexgender, BMI, smoker-status, westernised-diet status, use of antibiotics, and geographical location. Additionally, disease prevalence includes output for Crohn’s disease, ulcerative colitis, colorectal cancer, Clostridioides difficile infection, type-2 diabetes, rheumatoid arthritis, and fatty liver disease. Metadata vocabulary is consistent with that used in the curatedMetagenomeData repository. Prevalence of the queried sequence in each of these groups is quantified, and compared either between categories, or healthy controls, using Fisher’s exact test from the scipy.stats65 module in Python. 
 
@@ -27,7 +27,7 @@ mamba create --no-channel-priority -n investigut \
     "python=3.11" "numpy=1.24.3" "scipy=1.10.1" \
     "conda-forge::matplotlib-base" "seaborn=0.13.0" \
     "pandas=1.5.3" "statsmodels=0.13.5" "ete3=3.1.2" \
-    "openpyxl=3.0.10" "bioconda::diamond=2.1.8"
+    "openpyxl=3.0.10" "bioconda::diamond=2.1.11"
 ```
 4. Activate the environment.  
 ```bash
