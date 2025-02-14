@@ -14,11 +14,11 @@ Querying the user input protein against the 3,594 nonredundant genomes provides 
 ## Instructions
 1. Clone the repository.  
 ```bash
-git clone https://github.com/Matt-Schmitz/InvestiGut.git
+git clone https://github.com/Matt-Schmitz/InvestiGUT.git
 ```
-2. Enter the InvestiGut folder.  
+2. Enter the InvestiGUT folder.  
 ```bash
-cd InvestiGut
+cd InvestiGUT
 ```
 3. Create the environment with [mamba](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html).  
 ```bash
@@ -42,8 +42,8 @@ mamba activate investigut
 ```bash
 ./download_fasta.sh
 ```
-6. Add the InvestiGut folder to your `~/.bashrc` and apply the changes.  
-- Add to .bashrc: `export PATH="/PATH/TO/InvestiGut:$PATH"`
+6. Add the InvestiGUT folder to your `~/.bashrc` and apply the changes.  
+- Add to .bashrc: `export PATH="/PATH/TO/InvestiGUT:$PATH"`
 - Enter in terminal:
 ```bash
 source ~/.bashrc
@@ -53,7 +53,7 @@ source ~/.bashrc
 mamba activate investigut
 ```
 
-7. Run InvestiGut on chosen proteins.  
+7. Run InvestiGUT on chosen proteins.  
 Basic usage:
 
 ```bash
@@ -86,7 +86,7 @@ investigut.py -i /PATH/TO/seaweed.fa -m --low
 ```
 The resulting output can be found under `./examples/Bp1670 + Bp1689`. In this folder, the "overview.txt" file contains global prevalence within the metagenomes, disease prevalence statistics, country prevalence statistics, and other demographic factor data (smokers vs. non-smokers, BMI, gender, age by decade of life, and antibiotic usage). The MAG overview data include a list of positive gut bacteria, occurrence of the protein(s) by taxonomic rank, and the cumulative relative abundance of species containing the protein(s) of interest within the two cohorts of the origin data (https://www.nature.com/articles/s41467-022-31502-1). 
 
-The following is an example of an auto-generated figure of prevalence by country found within the output folder after running the seaweed digestion proteins mentioned above through InvestiGut.
+The following is an example of an auto-generated figure of prevalence by country found within the output folder after running the seaweed digestion proteins mentioned above through InvestiGUT.
 
 ![Prevalence_of_Bp1670 + Bp1689_by_Country](https://github.com/Matt-Schmitz/InvestiGut/assets/34464190/12cb4a4a-4cd5-47cd-af14-803e949c310c)
 
@@ -97,11 +97,11 @@ The following is an example of an auto-generated figure of prevalence by country
 
 1. Clone the repository.  
 ```bash
-git clone https://github.com/Matt-Schmitz/InvestiGut.git
+git clone https://github.com/Matt-Schmitz/InvestiGUT.git
 ```
 2. Enter the InvestiGut folder.  
 ```bash
-cd InvestiGut
+cd InvestiGUT
 ```
 3. Create the environment with [mamba](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html).  
 ```bash
@@ -166,16 +166,16 @@ mv /PATH/TO/opts.k2d /PATH/TO/tmpfs/opts.k2d
 mv /PATH/TO/taxo.k2d /PATH/TO/tmpfs/taxo.k2d
 ```
 
-7. Make GeneMark* software available to InvestiGut. 
-The lisence of GeneMark* software does not allow them to be packaged with InvestiGut, so they must be manually downloaded.
+7. Make GeneMark* software available to InvestiGUT. 
+The lisence of GeneMark* software does not allow them to be packaged with InvestiGUT, so they must be manually downloaded.
 
 [https://genemark.bme.gatech.edu/GeneMark/license_download.cgi](https://genemark.bme.gatech.edu/GeneMark/license_download.cgi)
 ```text
-GeneMarkS     -> Add    /PATH/TO/gmsn.pl to PATH for usage with InvestiGut
-GeneMarkS2    -> Add    /PATH/TO/gms2.pl to PATH for usage with InvestiGut
-GeneMarkST    -> Add    /PATH/TO/gmst.pl to PATH for usage with InvestiGut
-MetaGeneMark  -> Add     /PATH/TO/gmhmmp to PATH for usage with InvestiGut
-MetaGeneMark2 -> Add /PATH/TO/run_mgm.pl to PATH for usage with InvestiGut
+GeneMarkS     -> Add    /PATH/TO/gmsn.pl to PATH for usage with InvestiGUT
+GeneMarkS2    -> Add    /PATH/TO/gms2.pl to PATH for usage with InvestiGUT
+GeneMarkST    -> Add    /PATH/TO/gmst.pl to PATH for usage with InvestiGUT
+MetaGeneMark  -> Add     /PATH/TO/gmhmmp to PATH for usage with InvestiGUT
+MetaGeneMark2 -> Add /PATH/TO/run_mgm.pl to PATH for usage with InvestiGUT
 ```
 
 8. Set parameters and run the pipeline.
@@ -203,7 +203,7 @@ params.tools_for_org_group = """{
 
 
 // Leaving these paths blank will assume that they have been added to PATH
-// The lisence of GeneMark* software does not allow them to be packaged with InvestiGut
+// The lisence of GeneMark* software does not allow them to be packaged with InvestiGUT
 pathToGeneMarkS = ""     // "/PATH/TO/gmsn.pl"
 pathToGeneMarkS2 = ""    // "/PATH/TO/gms2.pl"
 pathToGeneMarkST = ""    // "/PATH/TO/gmst.pl"

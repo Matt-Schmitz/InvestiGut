@@ -27,7 +27,7 @@ params.tools_for_org_group = """{
 
 
 // Leaving these paths blank will assume that they have been added to PATH
-// The lisence of GeneMark* software does not allow them to be packaged with InvestiGut
+// The lisence of GeneMark* software does not allow them to be packaged with InvestiGUT
 pathToGeneMarkS = ""     // "/PATH/TO/gmsn.pl"
 pathToGeneMarkS2 = ""    // "/PATH/TO/gms2.pl"
 pathToGeneMarkST = ""    // "/PATH/TO/gmst.pl"
