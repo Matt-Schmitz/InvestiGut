@@ -1,4 +1,4 @@
-<img src="https://github.com/Matt-Schmitz/InvestiGut/assets/34464190/ce6ea7aa-7ac1-4ee2-9e3a-c2de169f531e" alt="investigut" width="555" height="128"/>
+<img src="https://github.com/user-attachments/assets/1b4adeec-c46b-446c-ab59-61b9235cf6e6" alt="investigut" width="555" height="128"/>
 
 ## What is InvestiGUT?
 InvestiGUT has been designed to allow users to study the ecological prevalence of a protein sequence across human gut microbiome samples.
