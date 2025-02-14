@@ -20,3 +20,4 @@ nextflow.config
 *.fa
 *.fna
 *.faa
+*.tsv
