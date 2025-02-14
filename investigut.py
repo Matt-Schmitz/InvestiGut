@@ -29,7 +29,7 @@ from datetime import datetime
 
 def main():
     parser = argparse.ArgumentParser(
-        description=('InvestiGut (Version 1.1)\n'
+        description=('InvestiGUT (Version 1.1)\n'
                      'Any arguments not recognized by InvesitGut will be passed on to DIAMOND (e.g., --threads, --faster, --ultra-sensitive)'
         )
     )
